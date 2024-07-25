@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GasTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Тестовое задание" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu VerticalAlignment="Top" Padding="10,0,0,0" Grid.ColumnSpan="2">
+            <MenuItem Header="_Файл">
+                <MenuItem Header="_Открыть" Click="OpenFile"/>
+                <Separator/>
+                <MenuItem Header="_Выход" Click="Exit"/>
+            </MenuItem>
+        </Menu>
         
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,35,20,35"/>
+        
+        <GroupBox Grid.Column="1" Margin="20,35,20,35" Header="Забиндить на название"/>
+
     </Grid>
 </Window>
