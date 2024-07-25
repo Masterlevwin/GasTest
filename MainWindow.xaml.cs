@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GasTest
 {
@@ -44,18 +45,21 @@ namespace GasTest
                     {
                         DataSet result = reader.AsDataSet();
                         DataTable table = result.Tables[0];
+                        ImportObjects(table);
                     }
                 }
             }
+
+            ShowTubeObjectsGrid();
         }
 
         private void ImportObjects(DataTable table)
         {
             TubeObjects.Clear();
 
-            for (int i = 0; i < table.Rows.Count; i++)
+            for (int i = 1; i < table.Rows.Count; i++)
             {
-                if (table.Rows[i].ItemArray[0] is null || $"{table.Rows[i].ItemArray[0]}" == "") break;
+                if ($"{table.Rows[i].ItemArray[0]}" == "") break;
 
                 TubeObject tube = new TubeObject()
                 {
@@ -72,7 +76,19 @@ namespace GasTest
             }
         }
 
-        public static float Parser(string data)                             //обёртка для парсинга float-значений
+        private void ShowTubeObjectsGrid()
+        {
+            TubeObjectsGrid.ItemsSource = TubeObjects;
+
+            TubeObjectsGrid.Columns[0].Header = "Название";
+            TubeObjectsGrid.Columns[1].Header = "Гор";
+            TubeObjectsGrid.Columns[2].Header = "Верт";
+            TubeObjectsGrid.Columns[3].Header = "Шир";
+            TubeObjectsGrid.Columns[4].Header = "Выс";
+            TubeObjectsGrid.Columns[5].Header = "Дефект";
+        }
+
+        public static float Parser(string data)     //обёртка для парсинга float-значений
         {
             //если число одновременно содержит и запятую, и точку - удаляем запятую
             if (data.Contains(',') && data.Contains('.')) data = data.Replace(",", "");
@@ -81,6 +97,11 @@ namespace GasTest
             if (float.TryParse(data.Replace(',', '.'), System.Globalization.NumberStyles.Float | System.Globalization.NumberStyles.AllowThousands,
                 System.Globalization.CultureInfo.InvariantCulture, out float f)) return f;
             else return 0;
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }

@@ -1,15 +1,17 @@
-﻿<Window x:Class="GasTest.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GasTest" x:Class="GasTest.MainWindow"
         mc:Ignorable="d"
-        Title="Тестовое задание" Height="450" Width="800">
+        Title="Тестовое задание" Height="400" Width="650" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
         <Menu VerticalAlignment="Top" Padding="10,0,0,0" Grid.ColumnSpan="2">
             <MenuItem Header="_Файл">
                 <MenuItem Header="_Открыть" Click="OpenFile"/>
@@ -17,10 +19,38 @@
                 <MenuItem Header="_Выход" Click="Exit"/>
             </MenuItem>
         </Menu>
-        
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,35,20,35"/>
-        
-        <GroupBox Grid.Column="1" Margin="20,35,20,35" Header="Забиндить на название"/>
+
+        <GroupBox Header="Список объектов" Margin="20,35,20,35">
+            <DataGrid x:Name="TubeObjectsGrid" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </GroupBox>
+
+        <GroupBox x:Name="DetailsBox" Margin="20,35,20,35" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=TubeObjectsGrid}" Header="{Binding Name}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Margin="20,20,0,0"/>
+                
+                <ListBox VerticalAlignment="Top" Margin="10,150,10,0">
+                    <TextBlock Text="Горизонтальная координата"/>
+                    <TextBlock Text="Вертикальная координата"/>
+                    <TextBlock Text="Горизонтальный размер"/>
+                    <TextBlock Text="Вертикальный размер"/>
+                    <TextBlock Text="Дефектный объект"/>
+                </ListBox>
+                
+                <ListBox VerticalAlignment="Top" Margin="10,150,10,0" Grid.Column="1" MinWidth="40">
+                    <TextBlock Text="{Binding Distance}"/>
+                    <TextBlock Text="{Binding Angle}"/>
+                    <TextBlock Text="{Binding Width}"/>
+                    <TextBlock Text="{Binding Height}"/>
+                    <CheckBox IsChecked="{Binding IsDefect}" IsEnabled="False"/>
+                </ListBox>
+
+            </Grid>
+        </GroupBox>
 
     </Grid>
 </Window>
