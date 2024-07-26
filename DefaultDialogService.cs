@@ -19,7 +19,8 @@ namespace GasTest
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "Excel-File (*.xlsx)|*.xlsx|All files (*.*)|*.*"
+                Filter = "All files (*.*)|*.*",
+                Multiselect = true
             };
             if (openFileDialog.ShowDialog() == true)
             {

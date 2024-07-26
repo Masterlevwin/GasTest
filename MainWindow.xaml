@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GasTest" x:Class="GasTest.MainWindow"
         mc:Ignorable="d"
-        Title="Тестовое задание" Height="400" Width="650" WindowStartupLocation="CenterScreen">
+        Title="Тестовое задание" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="300"/>
+            <ColumnDefinition MaxWidth="450"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -21,27 +21,38 @@
         </Menu>
 
         <GroupBox Header="Список объектов" Margin="20,35,20,35">
-            <DataGrid x:Name="TubeObjectsGrid" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <DataGrid x:Name="TubeObjectsGrid" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" HeadersVisibility="Column" SelectionChanged="ShowGrafics"/>
         </GroupBox>
 
         <GroupBox x:Name="DetailsBox" Margin="20,35,20,35" Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=TubeObjectsGrid}" Header="{Binding Name}">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                
-                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Margin="20,20,0,0"/>
-                
-                <ListBox VerticalAlignment="Top" Margin="10,150,10,0">
+
+                <Rectangle x:Name="Rect" Height="140" Stroke="Black" Width="220"/>
+                <TextBlock Text="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="12 ч" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <TextBlock Text="20 м" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+                <TextBlock Text="Масштаб 1:10" FontSize="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5"/>
+
+                <Canvas x:Name="RectGrid" Width="200" Height="120"/>
+
+                <ListBox VerticalAlignment="Top" Margin="10" Grid.Row="1">
                     <TextBlock Text="Горизонтальная координата"/>
                     <TextBlock Text="Вертикальная координата"/>
                     <TextBlock Text="Горизонтальный размер"/>
                     <TextBlock Text="Вертикальный размер"/>
                     <TextBlock Text="Дефектный объект"/>
                 </ListBox>
-                
-                <ListBox VerticalAlignment="Top" Margin="10,150,10,0" Grid.Column="1" MinWidth="40">
+
+                <ListBox VerticalAlignment="Top" Grid.Column="1" MinWidth="40" Grid.Row="1" Margin="10">
                     <TextBlock Text="{Binding Distance}"/>
                     <TextBlock Text="{Binding Angle}"/>
                     <TextBlock Text="{Binding Width}"/>
