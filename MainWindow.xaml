@@ -14,7 +14,7 @@
 
         <Menu VerticalAlignment="Top" Padding="10,0,0,0" Grid.ColumnSpan="2">
             <MenuItem Header="_Файл">
-                <MenuItem Header="_Открыть" Click="OpenFile"/>
+                <MenuItem Header="_Открыть" Click="OpenFiles"/>
                 <Separator/>
                 <MenuItem Header="_Выход" Click="Exit"/>
             </MenuItem>
